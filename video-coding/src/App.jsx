@@ -8,6 +8,8 @@ function App() {
   const videoElement4 = useRef(null);
   const videoElement5 = useRef(null);
   const videoElement6 = useRef(null);
+  const videoElement7 = useRef(null);
+  const videoElement8 = useRef(null);
 
   const seekTo = (time) => {
     console.log(`seeking to ${time}`);
@@ -17,6 +19,8 @@ function App() {
     videoElement4.current.currentTime = time;
     videoElement5.current.currentTime = time;
     videoElement6.current.currentTime = time;
+    videoElement7.current.currentTime = time;
+    videoElement8.current.currentTime = time;
   };
 
   const startVideos = () => {
@@ -27,6 +31,20 @@ function App() {
     videoElement4.current.play();
     videoElement5.current.play();
     videoElement6.current.play();
+    videoElement7.current.play();
+    videoElement8.current.play();
+  };
+
+  const pauseVideos = () => {
+    console.log(`starting videos`);
+    videoElement1.current.pause();
+    videoElement2.current.pause();
+    videoElement3.current.pause();
+    videoElement4.current.pause();
+    videoElement5.current.pause();
+    videoElement6.current.pause();
+    videoElement7.current.pause();
+    videoElement8.current.pause();
   };
 
   return (
@@ -104,11 +122,36 @@ function App() {
             type="video/webm"
           />
         </video>
+        <video
+          id="myVideo7"
+          preload="auto"
+          ref={videoElement7}
+          width="250"
+          controls
+        >
+          <source
+            src="https://wattslab-video-test-public.s3.amazonaws.com/01GR9ED3G57XJBBA77068BNH90/1675354384929-de8e880d-3a37-4149-baba-b3f1aa77cee1-cam-audio-1675354437725"
+            type="video/webm"
+          />
+        </video>
+        <video
+          id="myVideo8"
+          preload="auto"
+          ref={videoElement8}
+          width="250"
+          controls
+        >
+          <source
+            src="https://wattslab-video-test-public.s3.amazonaws.com/01GR9ED3G57XJBBA77068BNH90/1675354384929-de8e880d-3a37-4149-baba-b3f1aa77cee1-cam-video-1675354437728"
+            type="video/webm"
+          />
+        </video>
       </div>
       <div className="card">
         <button onClick={() => startVideos()}>Start</button>
+        <button onClick={() => pauseVideos()}>Pause</button>
       </div>
-      <h1>Enter time to seek to</h1>
+      <h1>Seek to:</h1>
       <div className="card">
         <button onClick={() => seekTo(0)}>0 seconds</button>
         <button onClick={() => seekTo(10)}>10 seconds</button>
