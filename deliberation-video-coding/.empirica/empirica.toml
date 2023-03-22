@@ -1,0 +1,9 @@
+name = "deliberation-video-coding"
+
+[tajriba.auth]
+srtoken = "HaQaiKxqXAdsEXNX"
+
+[[tajriba.auth.users]]
+name = "Admin"
+username = "admin"
+password = "ZoSGrTZk"
