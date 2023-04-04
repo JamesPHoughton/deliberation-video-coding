@@ -9,7 +9,6 @@ export function Video({vidURL, ref, id, audioOn, audioURL}) {
               preload="auto"
               ref={ref}
               width="250"
-              controls
             >
               <source
                 src={vidURL}
@@ -18,8 +17,7 @@ export function Video({vidURL, ref, id, audioOn, audioURL}) {
               
             </video>
             {audioOn && (
-                <audio
-                controls>
+                <audio>
                     <source 
                         src={audioURL}
                         type="audio/webm"

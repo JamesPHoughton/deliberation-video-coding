@@ -1,8 +1,8 @@
 import { Video } from "./components/Video";
-import { usePlayer } from "@empirica/core/player/classic/react";
+//import { usePlayer } from "@empirica/core/player/classic/react";
 import React from "react";
 export function Coding() {
-    const player = usePlayer();
+    //const player = usePlayer();
     const codes = [];
 
     const urls = [
@@ -85,6 +85,27 @@ export function Coding() {
         })
         startVideos()
     }
+    
+    window.addEventListener("keydown", (e) => {
+        if (e.defaultPrevented) {
+            return;
+        }
+        let handled = false;
+        if (e.key === " ") {
+            videos[0].paused ? startVideos() : pauseVideos();
+            handled = true;
+        }
+        if (e.key === "ArrowLeft") {
+            back10();
+        }
+        if (e.key === "ArrowRight") {
+            forward10();
+        }
+
+        if (handled) {
+            e.preventDefault();
+        }
+    })
     
 
     return(
