@@ -1,6 +1,10 @@
 import { Video } from "./components/Video";
 //import { usePlayer } from "@empirica/core/player/classic/react";
 import React from "react";
+import { EnterCodes } from "./components/EnterCodes";
+import { ControlBar } from "./components/ControlBar";
+import { Scheme } from "./components/Scheme";
+//import scheme from "./components/scheme.json"
 export function Coding() {
     //const player = usePlayer();
     const codes = [];
@@ -13,6 +17,51 @@ export function Coding() {
             id: 1
         }
     ]
+    
+    const scheme = [
+        {
+            category: "behavior",
+            name: "smile",
+            description: "This is the description.",
+            id: "1"
+        },
+        {
+            category: "behavior",
+            name: "laugh",
+            id: "2"
+        },
+        {
+            category: "behavior",
+            name: "eye contact",
+            description: "This is the description.",
+            id: "3"
+        },
+        {
+            category: "emotion",
+            name: "happy",
+            description: "This is the description.",
+            id: "4"
+        },
+        {
+            category: "emotion",
+            name: "sad",
+            description: "This is the description.",
+            id: "5"
+        },
+        {
+            category: "emotion",
+            name: "angry",
+            description: "This is the description.",
+            id: "6"
+        },
+        {
+            category: "emotion",
+            name: "confused",
+            description: "This is the description.",
+            id: "7"
+        }
+    ]
+    
     
     const vidElements = []
     for (let i = 0; i < urls.length; i++) {
@@ -110,24 +159,14 @@ export function Coding() {
 
     return(
         <div className="coding">
-            <div>
-                {vidElements}
+            <div id="video">
+                <div>
+                    {vidElements}
+                </div>
+                <ControlBar play={startVideos} pause={pauseVideos} back={back10} forward={forward10} />
             </div>
-            <div>
-                <button onClick={startVideos}>Play </button>
-
-                <button onClick={pauseVideos}>Pause </button>
-
-                <button onClick={back10}>Back 10s</button>
-
-                <button onClick={forward10}>Forward 10s</button>
-            </div>
-            Enter codes:
-            <div>
-                <input id="code-input" onChange={handleEntry}></input>
-                <button onClick={handleSubmit}>Submit code</button>
-            </div>
-
+            <EnterCodes handleSubmit={handleSubmit} scheme={scheme} handleEntry={handleEntry}/>
+            <Scheme scheme={scheme} />
         </div>
     )
 }

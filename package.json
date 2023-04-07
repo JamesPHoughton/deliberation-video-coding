@@ -33,5 +33,8 @@
   "bugs": {
     "url": "https://github.com/Watts-Lab/deliberation-video-coding/issues"
   },
-  "homepage": "https://github.com/Watts-Lab/deliberation-video-coding#readme"
+  "homepage": "https://github.com/Watts-Lab/deliberation-video-coding#readme",
+  "dependencies": {
+    "multiselect-react-dropdown": "^2.0.25"
+  }
 }
