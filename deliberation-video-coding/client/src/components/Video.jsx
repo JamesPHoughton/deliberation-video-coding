@@ -8,7 +8,7 @@ export function Video({vidURL, ref, id, audioOn, audioURL}) {
               id={id}
               preload="auto"
               ref={ref}
-              width="250"
+              width="500"
             >
               <source
                 src={vidURL}

@@ -10,7 +10,6 @@ export function Scheme({scheme}) {
     }
     //<category title>, <name: description> <name: description>, <category title> <name: description>...
     const schemeElements = [] 
-    console.log("categories " + categories.length)
     for (let i = 0; i < categories.length; i++) {
         
         const arr = scheme.filter((elt) => {
@@ -18,11 +17,11 @@ export function Scheme({scheme}) {
         });
         console.log(arr);
         schemeElements.push(
-            <h2>{categories[i]}</h2>
+            <h2 className="text-xl font-bold">{categories[i]}</h2>
         )
         for (let j = 0; j < arr.length; j++) {
             schemeElements.push(
-                <p>{arr[j].name}: {arr[j].description}</p>
+                <p><span className="italic">{arr[j].name}:</span> {arr[j].description}</p>
             )
         }
     }

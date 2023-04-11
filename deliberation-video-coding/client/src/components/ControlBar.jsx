@@ -4,7 +4,7 @@ import React from "react";
 
 export function ControlBar({play, pause, back, forward}) {
     return(
-        <div>
+        <div style={{display: "flex", justifyContent: "center", margin: "20px"}}>
             <Button handleClick={play} children={<Play/>}/>
             <Button handleClick={pause} children={<Pause/>}/>
             <Button handleClick={back} children={<ClockClockwise/>}/>
