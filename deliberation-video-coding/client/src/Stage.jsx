@@ -5,8 +5,6 @@ import {
 } from "@empirica/core/player/classic/react";
 import { Loading } from "@empirica/core/player/react";
 import React from "react";
-import { JellyBeans } from "./examples/JellyBeans";
-import { MineSweeper } from "./examples/MineSweeper";
 import { Coding } from "./Coding";
 
 export function Stage() {
@@ -40,5 +38,5 @@ export function Stage() {
     <div id="coding">
       <Coding />
     </div>
-  )
+  );
 }
