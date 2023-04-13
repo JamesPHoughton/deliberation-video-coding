@@ -1,48 +1,48 @@
 import { ClassicListenersCollector } from "@empirica/core/admin/classic";
 export const Empirica = new ClassicListenersCollector();
-import { getPresignedUrl } from "./awsInterface";
+//import { getPresignedUrl } from "./awsInterface";
 console.log("loaded");
 // console.log("did  we import? ", getPresignedUrl);
 
 const scheme1 = [
   {
-    category: "Behavior",
+    category: "Facial Expression",
     name: "Smile",
     description: "The participant displays a closed or open mouth smile",
     id: "1",
   },
   {
-    category: "Behavior",
-    name: "Laugh",
-    description: "The participant laughs.",
+    category: "Facial Expression",
+    name: "Warm",
+    description: "The participant's facial expression appears to display warmth.",
     id: "2",
   },
   {
-    category: "Behavior",
-    name: "Eye contact",
+    category: "Verbal",
+    name: "Use of reflections",
     description:
-      "The participant appears to be looking directly at the camera.",
+      "The participant spoke about their own experiences",
     id: "3",
   },
   {
-    category: "Emotion",
-    name: "Happy",
+    category: "Verbal",
+    name: "Summaries of content",
     description:
-      "The participant says or does something to indicate they are happy",
+      "The participant summarized the conversation",
     id: "4",
   },
   {
-    category: "Emotion",
-    name: "Sad",
+    category: "Verbal",
+    name: "Open-ended questions",
     description:
-      "The participant says or does something to indiciate they are sad",
+      "The participant asked an open-ended question.",
     id: "5",
   },
   {
-    category: "Emotion",
-    name: "Angry",
+    category: "Verbal",
+    name: "Empathy",
     description:
-      "The participant says or does something to indicate they are angry",
+      "The participant displayed empathy towards another participant",
     id: "6",
   },
   {
@@ -54,17 +54,47 @@ const scheme1 = [
   },
 ];
 
-//paths are in the format recordingRoomName/recordingIds
-// videoPaths1 = [
-//   {
-//     video:
-//       "01GR9ED3G57XJBBA77068BNH90/1675354384929-1e60214d-05d1-401e-9bd9-d117f5bec0f0-cam-video-1675354390750",
-//     audio:
-//       "01GR9ED3G57XJBBA77068BNH90/1675354384929-1e60214d-05d1-401e-9bd9-d117f5bec0f0-cam-audio-1675354390747",
-//     audioOn: true,
-//     id: 1,
-//   },
-// ]
+const survey = [
+  {
+    question: "How often was the participant distracted?",
+    responses: [{value: 2, text: "often"}, {value: 1, text: "on occasion"}, {value: 0, text: "never"}]
+  },
+  {
+    question: "How often were there verbal disruptions?",
+    responses: [{value: 2, text: "often"}, {value: 1, text: "on occasion"}, {value: 0, text: "never"}]
+  },
+  {
+    question: "Overall, was the content relevant to the issue?",
+    responses: [{value: 1, text: "Yes, it was relevant"}, {value: 0, text: "No, it was not relevant"}]
+  },
+  {
+    question: "Overall, was there tension in the discussion?",
+    responses: [{value: 1, text: "Yes, there was clear tension"}, {value: 0, text: "It's unclear if there was tension"}, {value: -1, text: "No, there was clear alignment."}]
+  }
+]
+
+//paths are in the format recordingRoomName/recordingIds //TODO remove first part and just have path
+videoPaths1 = [
+  {
+    video:
+      "https://wattslab-video-test-public.s3.amazonaws.com/01GQMRKWM5B6FFN94XE7KDNKYZ-internal/1674660535410-ae4d075b-39b6-48ec-a7c0-868d6fd06afe-cam-video-1674660544002",
+    audio:
+      "https://wattslab-video-test-public.s3.amazonaws.com/01GQMRKWM5B6FFN94XE7KDNKYZ-internal/1674660535410-ae4d075b-39b6-48ec-a7c0-868d6fd06afe-cam-audio-1674660543681",
+    audioOn: true,
+    id: 1,
+  },
+]
+
+jamesVideoPaths = [
+  {
+    video:
+      "https://wattslab-video-test-public.s3.amazonaws.com/01GT9PSKZTWTR87MGDW1JQTG0K-internal-james-netta/1677511696683-fc210681-bd73-4bfc-ac8d-1c5c606a9bd0-cam-video-1677511697670",
+    audio:
+      "https://wattslab-video-test-public.s3.amazonaws.com/01GT9PSKZTWTR87MGDW1JQTG0K-internal-james-netta/1677511696683-fc210681-bd73-4bfc-ac8d-1c5c606a9bd0-cam-audio-1677511697662",
+    audioOn: true,
+    id: 1,
+  }
+]
 
 videoPaths2 = [
   {
@@ -85,17 +115,18 @@ Empirica.onGameStart(({ game }) => {
   // - stage 1: "Survey" watch and give general overview with a post-survey
   // - stage 2: "Annotate" live annotation
 
-  const round = game.addRound({ name: "test" });
-  round.addStage({ name: "teststage", duration: 10000 });
+  const round = game.addRound({ name: "Test Video 1", videoList: jamesVideoPaths });
+  round.addStage({name: "Survey", duration: 3000, survey: survey})
+  round.addStage({ name: "Annotate", duration: 3000, scheme: scheme1 });
 
   // for (videoSet of videoPaths2) {
   //   console.log("adding videoSet", videoSet);
-  //   const videoURL = getPresignedUrl({
-  //     // maybe move to onBatchStart
-  //     region: process.env.AWS_REGION,
-  //     bucket: process.env.AWS_BUCKET,
-  //     S3Path: videoSet(videoSet["videoPath"]),
-  //   });
+  //   // const videoURL = getPresignedUrl({
+  //   //   // maybe move to onBatchStart
+  //   //   region: process.env.AWS_REGION,
+  //   //   bucket: process.env.AWS_BUCKET,
+  //   //   S3Path: videoSet(videoSet["videoPath"]),
+  //   // });
   //   console.log("Video URL", videoURL);
   //   const audioURL = getPresignedUrl({
   //     region: process.env.AWS_REGION,

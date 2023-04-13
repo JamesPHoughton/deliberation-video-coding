@@ -7,7 +7,7 @@ import { Game } from "./Game";
 import { ExitSurvey } from "./intro-exit/ExitSurvey";
 import { Introduction } from "./intro-exit/Introduction";
 import { Video } from "./components/Video";
-import { Coding } from "./Coding";
+import { Annotate } from "./Annotate";
 
 export default function App() {
   const urlParams = new URLSearchParams(window.location.search);

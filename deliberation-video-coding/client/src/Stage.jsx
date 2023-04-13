@@ -5,13 +5,11 @@ import {
 } from "@empirica/core/player/classic/react";
 import { Loading } from "@empirica/core/player/react";
 import React from "react";
-import { Coding } from "./Coding";
+import { Annotate } from "./Annotate";
 
 export function Stage() {
   const player = usePlayer();
   const players = usePlayers();
-  const round = useRound();
-  console.log("I'm in stage");
 
   if (player.stage.get("submit")) {
     if (players.length === 1) {
@@ -35,8 +33,8 @@ export function Stage() {
   // }
 
   return (
-    <div id="coding">
-      <Coding />
+    <div id="annotate">
+      <Annotate />
     </div>
   );
 }

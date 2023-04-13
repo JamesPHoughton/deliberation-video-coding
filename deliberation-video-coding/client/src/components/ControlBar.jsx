@@ -7,8 +7,8 @@ export function ControlBar({play, pause, back, forward}) {
         <div style={{display: "flex", justifyContent: "center", margin: "20px"}}>
             <Button handleClick={play} children={<Play/>}/>
             <Button handleClick={pause} children={<Pause/>}/>
-            <Button handleClick={back} children={<ClockClockwise/>}/>
-            <Button handleClick={forward} children={<ClockCounterClockwise/>}/>
+            <Button handleClick={back} children={<ClockCounterClockwise/>}/>
+            <Button handleClick={forward} children={<ClockClockwise/>}/>
         </div>
     )
 }
