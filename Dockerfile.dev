@@ -3,7 +3,6 @@
 
 FROM ghcr.io/empiricaly/empirica:build-249
 
-
 # jq for parsing javascript (tajriba.json)
 # RUN apt-get update && \
 #   apt-get install -q -y --no-install-recommends \
@@ -14,11 +13,14 @@ FROM ghcr.io/empiricaly/empirica:build-249
 
 WORKDIR /build
 
-
 # ENTRYPOINT ["tail", "-f", "/dev/null"]
 
-
 ADD ./deliberation-video-coding /build
+
+# RUN echo $'[default] \n\
+# aws_access_key_id = "$AWS_ACCESS_KEY_ID" \n\
+# aws_secret_access_key = "$AWS_SECRET_ACCESS_KEY" \n\
+# ' > /.aws/credentials
 
 # install client dependencies
 WORKDIR /build/client
@@ -31,5 +33,7 @@ WORKDIR /build/server
 RUN empirica npm install
 
 WORKDIR /build
+
+
 
 # By default, the ghcr.io/empiricaly/empirica image will run empirica

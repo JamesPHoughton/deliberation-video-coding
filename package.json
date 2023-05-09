@@ -16,7 +16,7 @@
   "scripts": {
     "test": "cd cypress && npx cypress open",
     "test:latest": "cd cypress && npx cypress@latest open",
-    "start": "rm .empirica/local/tajriba.json; rm testData/paymentData/*.jsonl; docker-compose -f docker-compose-dev.yml up --force-recreate --remove-orphans -V",
+    "start": "rm ./deliberation-video-coding/.empirica/local/tajriba.json; docker-compose -f docker-compose-dev.yml up --force-recreate --remove-orphans -V",
     "start:windows": "rm -r -f .empirica/local/tajriba.json & docker-compose -f docker-compose-dev.yml up --force-recreate --remove-orphans -V",
     "start:rebuild": "docker-compose -f docker-compose-dev.yml up --force-recreate --build --remove-orphans -V",
     "start:test": "rm .empirica/local/tajriba.json; docker-compose -f docker-compose-test.yml up --force-recreate --remove-orphans -V",
@@ -33,5 +33,11 @@
   "bugs": {
     "url": "https://github.com/Watts-Lab/deliberation-video-coding/issues"
   },
-  "homepage": "https://github.com/Watts-Lab/deliberation-video-coding#readme"
+  "homepage": "https://github.com/Watts-Lab/deliberation-video-coding#readme",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.310.0",
+    "@aws-sdk/s3-request-presigner": "^3.310.0",
+    "multiselect-react-dropdown": "^2.0.25",
+    "react-likert-scale": "^4.1.2"
+  }
 }
