@@ -1,8 +1,11 @@
+import { PlayCircle } from "@phosphor-icons/react";
 import Multiselect from "multiselect-react-dropdown"
 import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
-export function EnterCodes({handleSubmit, scheme, handleEntry}) {
+import { usePlayer } from "@empirica/core/player/classic/react";
+export function EnterCodes({handleSubmit, scheme, handleEntry, urls}) {
     const [selected, setSelected] = useState([]);
+    const player = usePlayer();
     function handleSelect(selectedList) {
         setSelected(selectedList)
         console.log(selectedList)
@@ -13,6 +16,10 @@ export function EnterCodes({handleSubmit, scheme, handleEntry}) {
                 e.stopPropagation();
             }
         }, true)
+        player.stage.set("codes", []);
+        player.stage.set("vidURLs", urls);
+        player.stage.set("participantID", player.get("participantIdentifer"));
+        player.stage.set("name", "Annotate")
     }, [])
     
     return(

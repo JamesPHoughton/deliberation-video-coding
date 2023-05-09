@@ -1,4 +1,5 @@
 import { ClassicListenersCollector } from "@empirica/core/admin/classic";
+import { exportScienceData } from "./exportScienceData";
 export const Empirica = new ClassicListenersCollector();
 //import { getPresignedUrl } from "./awsInterface";
 console.log("loaded");
@@ -152,8 +153,8 @@ Empirica.onRoundEnded(({ round }) => {});
 
 Empirica.onGameEnded(({ game }) => {});
 
-Empirica.on("playerStage", "codes", (ctx, { player, codes }) => {
-  console.log("player stage callback")
-  console.log("player ", player);
-  console.log("codes ", codes);
+Empirica.on("playerStage", "submit", (ctx, { playerStage, submit }) => {
+  console.log("player in callback")
+  console.log(playerStage)
+  exportScienceData({playerStage});
 })

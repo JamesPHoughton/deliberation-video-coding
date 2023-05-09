@@ -1,9 +1,17 @@
 import React from "react";
-import { useStage } from "@empirica/core/player/classic/react";
-import Likert from "react-likert-scale"
-export function Survey ({}) {
+import { useStage, usePlayer } from "@empirica/core/player/classic/react";
+import { useEffect } from "react";
+export function Survey ({urls}) {
     const stage = useStage();
     const survey = stage.get("survey");
+    const player = usePlayer();
+
+    useEffect(() => {
+        player.stage.set("participantID", player.get("participantIdentifier"))
+        player.stage.set("vidURLs", urls)
+        player.stage.set("name", "Survey")
+    }, [])
+
     const surveyElts = []
     for (let i = 0; i < survey.length; i++) {
         const responses = survey[i].responses;

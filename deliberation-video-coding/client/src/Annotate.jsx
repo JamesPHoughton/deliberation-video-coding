@@ -23,9 +23,7 @@ export function Annotate() {
     const survey = stage.get("survey") || [];
     const [displayAlert, setDisplayAlert] = useState(false);
 
-    useEffect(() => {
-        player.stage.set("codes", [])
-    }, [])
+
     // const urls = [
     //     {
     //         video: "https://wattslab-video-test-public.s3.amazonaws.com/01GR9ED3G57XJBBA77068BNH90/1675354384929-1e60214d-05d1-401e-9bd9-d117f5bec0f0-cam-video-1675354390750", 
@@ -240,12 +238,12 @@ export function Annotate() {
                 </div>
                 }
                 {stageName === "Survey" && !displayAlert &&
-                    <Survey />
+                    <Survey urls={urls}/>
                 }
                 {stageName === "Survey" && displayAlert &&
                     <div>
                         <Alert title="Please respond to all questions before proceeding." />
-                        <Survey />
+                        <Survey urls={urls}/>
                     </div>
                 }
                 
@@ -253,7 +251,7 @@ export function Annotate() {
             {stageName === "Annotate" &&
                 <div style={{margin: "30px"}}>
                     
-                    <EnterCodes handleSubmit={handleSubmit} scheme={scheme} handleEntry={handleEntry}/>
+                    <EnterCodes handleSubmit={handleSubmit} scheme={scheme} handleEntry={handleEntry} urls={urls}/>
                     
                 </div>
             }
