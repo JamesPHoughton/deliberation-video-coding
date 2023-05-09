@@ -151,3 +151,9 @@ Empirica.onStageEnded(({ stage }) => {});
 Empirica.onRoundEnded(({ round }) => {});
 
 Empirica.onGameEnded(({ game }) => {});
+
+Empirica.on("playerStage", "codes", (ctx, { player, codes }) => {
+  console.log("player stage callback")
+  console.log("player ", player);
+  console.log("codes ", codes);
+})

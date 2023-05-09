@@ -8,10 +8,11 @@ import { useRound, useStage, usePlayer } from "@empirica/core/player/classic/rea
 //import scheme from "./components/scheme.json"
 import { Survey } from "./components/Survey";
 import { Button } from "./components/Button"
+import { Alert } from "./components/Alert";
 //import Likert from "react-likert-scale"
 export function Annotate() {
     //const player = usePlayer();
-    const [codes, setCodes] = useState([]); //TODO where should this be stored
+    //const [codes, setCodes] = useState([]); //TODO where should this be stored
     const round = useRound();
     const stage = useStage();
     const player = usePlayer()
@@ -20,6 +21,11 @@ export function Annotate() {
     const urls = round.get("videoList");
     const scheme = stage.get("scheme") || "";
     const survey = stage.get("survey") || [];
+    const [displayAlert, setDisplayAlert] = useState(false);
+
+    useEffect(() => {
+        player.stage.set("codes", [])
+    }, [])
     // const urls = [
     //     {
     //         video: "https://wattslab-video-test-public.s3.amazonaws.com/01GR9ED3G57XJBBA77068BNH90/1675354384929-1e60214d-05d1-401e-9bd9-d117f5bec0f0-cam-video-1675354390750", 
@@ -153,15 +159,15 @@ export function Annotate() {
         pauseVideos()
     }
 
-    function handleSubmit(selectedList, setSelectedList) {
+    function handleSubmit(selectedList, setSelectedList) { //TODO this isn't getting called
         const time = videos[0].currentTime
         console.log("time " + videos[0].currentTime)
-        //document.getElementById("input-box")
-        setCodes(codes.push({
+        const codes = player.stage.get("codes");
+        codes.push({
             time: time,
             code: selectedList
-        }))
-        console.log(codes);
+        })
+        player.stage.set("codes", codes)
         setSelectedList([]);
         startVideos()
     }
@@ -188,10 +194,28 @@ export function Annotate() {
     }, false)
 
     function submitStage() {
-        if (stageName === "Annotate") {
-            console.log("codes before set", codes)
-            player.stage.set("liveAnnotationCodes", codes);
-            console.log(player.stage.get("liveAnnotationCodes", codes)); //TODO fix this
+        // if (stageName === "Annotate") {
+        //     // console.log("codes before set", codes)
+        //     // player.stage.set("liveAnnotationCodes", codes);
+        //     // console.log(player.stage.get("liveAnnotationCodes", codes)); //TODO fix this
+        // }
+
+        if (stageName === "Survey") {
+            //check form is all filled out
+            //save data
+            const radios = document.getElementsByTagName("input");
+            let surveyResponses = [];
+            for (let i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    surveyResponses.push(radios[i].value);
+                }
+            }
+            if (surveyResponses.length < survey.length) {
+                setDisplayAlert(true);
+                return;
+            } else {
+                player.stage.set("surveyResponses", surveyResponses);
+            }
         }
        
         player.stage.set("submit", true);
@@ -215,8 +239,14 @@ export function Annotate() {
                     <Scheme scheme={scheme} />
                 </div>
                 }
-                {stageName === "Survey" &&
-                   <Survey />
+                {stageName === "Survey" && !displayAlert &&
+                    <Survey />
+                }
+                {stageName === "Survey" && displayAlert &&
+                    <div>
+                        <Alert title="Please respond to all questions before proceeding." />
+                        <Survey />
+                    </div>
                 }
                 
             </div>

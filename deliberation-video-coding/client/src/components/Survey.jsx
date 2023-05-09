@@ -11,7 +11,8 @@ export function Survey ({}) {
         for (let j = 0; j < responses.length; j++) {
             radios.push(
                 <div>
-                    <input type="radio" style={{marginLeft: "20px"}} value={responses[j].value} name={survey[i].question}/> {responses[j].text}
+                    <input type="radio" style={{marginLeft: "20px"}} value={responses[j].value} name={survey[i].question}/> 
+                    {responses[j].text}
                 </div>
             )   
         }
